@@ -1,5 +1,7 @@
 package pl.cleankod.exchange.core.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import pl.cleankod.util.Preconditions;
 
 import java.util.UUID;
@@ -12,10 +14,17 @@ public record Account(Id id, Number number, Money balance) {
             Preconditions.requireNonNull(value);
         }
 
+        @Override
+        @JsonValue
+        public UUID value() {
+            return value;
+        }
+
         public static Id of(UUID value) {
             return new Id(value);
         }
 
+        @JsonCreator
         public static Id of(String value) {
             Preconditions.requireNonNull(value);
             return new Id(UUID.fromString(value));
@@ -33,6 +42,13 @@ public record Account(Id id, Number number, Money balance) {
             }
         }
 
+        @Override
+        @JsonValue
+        public String value() {
+            return value;
+        }
+
+        @JsonCreator
         public static Number of(String value) {
             return new Number(value);
         }
