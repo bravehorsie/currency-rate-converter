@@ -3,6 +3,7 @@ package pl.cleankod.exchange.core.gateway
 import pl.cleankod.exchange.core.domain.Money
 import pl.cleankod.exchange.provider.CurrencyConversionNbpService
 import pl.cleankod.exchange.provider.nbp.ExchangeRatesNbpClient
+import pl.cleankod.exchange.provider.nbp.ExchangeRatesNbpClientService
 import pl.cleankod.exchange.provider.nbp.model.Rate
 import pl.cleankod.exchange.provider.nbp.model.RateWrapper
 import spock.lang.Specification
@@ -16,7 +17,7 @@ class CurrencyConversionServiceTest extends Specification {
     void "testCurrencyConversion expect scale 2 and round mode HALF_EVEN" (){
         def eur = Currency.getInstance("EUR")
         def czk = Currency.getInstance("CZK")
-        def client = Mock(ExchangeRatesNbpClient)
+        def client = Mock(ExchangeRatesNbpClientService)
         client.fetch(_, _) >> mockRate("1000")
         CurrencyConversionService service = new CurrencyConversionNbpService(client)
 
